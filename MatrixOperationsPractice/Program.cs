@@ -7,31 +7,11 @@ namespace MatrixOperationsPractice
     {
         static void Main(string[] args)
         {
-            int[,] matrix = GetMatrix();
-            PrintMatrix(matrix);
-            Console.WriteLine("Выберите действие из меню \n" +
-                                  "1 - Посчитать количество положительных/отрицательных чисел в матрице\n" +
-                                  "2 - Построчная сортировка\n" +
-                                  "3 - Построчная инверсия элементов\n" +
-                                  "0 - Выйти из приложения");
-            var input = Console.ReadLine();
-            switch (input)
+            while (true)
             {
-                case "0":
-                    Environment.Exit(0);
-                    break;
-                case "1":
-                    ElementsAmount(matrix);
-                    break;
-                case "2":
-                    LinesSorting(matrix);
-                    break;
-                case "3":
-                    LinesInverting(matrix);
-                    break;
-                default:
-                    Console.WriteLine("Неверный ввод. Попробуйте ещё раз");
-                    break;
+                int[,] matrix = GetMatrix();
+                PrintMatrix(matrix);
+                FunctionsMenu(matrix);
             }
         }
 
@@ -122,9 +102,65 @@ namespace MatrixOperationsPractice
             return spacesMatrix;
         }
 
+        private static void FunctionsMenu(int[,] matrix) {
+            Console.WriteLine("Выберите действие из меню \n" +
+                                      "1 - Посчитать количество положительных/отрицательных чисел в матрице\n" +
+                                      "2 - Построчная сортировка\n" +
+                                      "3 - Построчная инверсия элементов\n" +
+                                      "4 - Ввести другую матрицу\n" +
+                                      "0 - Выйти из приложения");
+            var input = Console.ReadLine();
+            switch (input)
+            {
+                case "0":
+                    Environment.Exit(0);
+                    break;
+                case "1":
+                    ElementsAmount(matrix);
+                    break;
+                case "2":
+                    LinesSorting(matrix);
+                    break;
+                case "3":
+                    LinesInverting(matrix);
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Неверный ввод. Попробуйте ещё раз");
+                    break;
+            }
+            FunctionsMenu(matrix);
+        }
+
         private static void ElementsAmount(int[,] matrix)
         {
-
+            Console.WriteLine("Посчитать количество \n" +
+                                  "1 - положительных чисел\n" +
+                                  "2 - отрицательных чисел\n" +
+                                  "0 - Вернуться к основному меню");
+            var input = Console.ReadLine();
+            switch (input)
+            {
+                case "0":
+                    return;
+                case "1":
+                    var positiveCount = 0;
+                    foreach (var element in matrix)
+                        if (element > 0) positiveCount++;
+                    Console.WriteLine("Количество положительных чисел " + positiveCount);
+                    break;
+                case "2":
+                    var negativeCount = 0;
+                    foreach (var element in matrix)
+                        if (element < 0) negativeCount++;
+                    Console.WriteLine("Количество отрицательных чисел " + negativeCount);
+                    break;
+                default:
+                    Console.WriteLine("Неверный ввод. Попробуйте ещё раз");
+                    break;
+            }
+            ElementsAmount(matrix);
         }
 
         private static void LinesSorting(int[,] matrix)
