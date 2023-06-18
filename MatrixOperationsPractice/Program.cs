@@ -106,7 +106,7 @@ namespace MatrixOperationsPractice
             Console.WriteLine("Выберите действие из меню \n" +
                                       "1 - Посчитать количество положительных/отрицательных чисел в матрице\n" +
                                       "2 - Построчная сортировка\n" +
-                                      "3 - Построчная инверсия элементов\n" +
+                                      "3 - Построчная инверсия \n" +
                                       "4 - Ввести другую матрицу\n" +
                                       "0 - Выйти из приложения");
             var input = Console.ReadLine();
@@ -203,7 +203,16 @@ namespace MatrixOperationsPractice
 
         private static void LinesInverting(int[,] matrix)
         {
-
+            for (var i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (var j = 0; j < matrix.GetLength(1) / 2; j++)
+                {
+                    int bufer = matrix[i, matrix.GetLength(1)-1-j];
+                    matrix[i, matrix.GetLength(1)-1 - j] = matrix[i, j];
+                    matrix[i, j] = bufer;
+                }
+            }
+            PrintMatrix(matrix);
         }
     }
 }
