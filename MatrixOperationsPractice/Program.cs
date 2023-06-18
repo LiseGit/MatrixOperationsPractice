@@ -96,7 +96,7 @@ namespace MatrixOperationsPractice
             {
                 for (var j = 0; j < matrix.GetLength(1); j++)
                 {
-                    spacesMatrix[i, j] = maxLengts[j]- spacesMatrix[i, j];
+                    spacesMatrix[i, j] = maxLengts[j] - spacesMatrix[i, j];
                 }
             }
             return spacesMatrix;
@@ -158,14 +158,47 @@ namespace MatrixOperationsPractice
                     break;
                 default:
                     Console.WriteLine("Неверный ввод. Попробуйте ещё раз");
+                    ElementsAmount(matrix);
                     break;
             }
-            ElementsAmount(matrix);
         }
 
         private static void LinesSorting(int[,] matrix)
         {
-
+            Console.WriteLine("Отсортировать построчно в порядке \n" +
+                                  "1 - возрастания\n" +
+                                  "2 - убывания\n" +
+                                  "0 - Вернуться к основному меню");
+            var input = Console.ReadLine();
+            switch (input)
+            {
+                case "0":
+                    return;
+                case "1":
+                case "2":
+                    for (var i = 0; i < matrix.GetLength(0); i++)
+                    {
+                        for (var j = 0; j < matrix.GetLength(1); j++)
+                        {
+                            for (var k = j; k < matrix.GetLength(1); k++)
+                            {
+                                if (input == "1" && matrix[i, k] < matrix[i, j]||
+                                    input == "2" && matrix[i, k] > matrix[i, j])
+                                {
+                                    int bufer = matrix[i, k];
+                                    matrix[i, k] = matrix[i, j];
+                                    matrix[i, j] = bufer;
+                                }
+                            }
+                        }
+                    }
+                    PrintMatrix(matrix);
+                    break;
+                default:
+                    Console.WriteLine("Неверный ввод. Попробуйте ещё раз");
+                    LinesSorting(matrix);
+                    break;
+            }
         }
 
         private static void LinesInverting(int[,] matrix)
